@@ -1,0 +1,1482 @@
+{
+  "format": "sofc-system-v3",
+  "name": "800 °C 蒸汽与电堆槽道、顶底板示例",
+  "nodes": [
+    {
+      "id": "NG-01",
+      "type": "feed",
+      "name": "天然气（含 C₂–C₅）",
+      "x": 40,
+      "y": 90,
+      "params": {
+        "T": 25,
+        "P": 1.2,
+        "flow": 5.0569739337889485,
+        "y": [
+          0,
+          0,
+          0,
+          0.005,
+          0.9,
+          0.005,
+          0,
+          0.05,
+          0.025,
+          0.01,
+          0.005
+        ]
+      },
+      "inlets": {}
+    },
+    {
+      "id": "WATER-01",
+      "type": "water",
+      "name": "系统给水",
+      "x": 40,
+      "y": 460,
+      "params": {
+        "T": 25,
+        "P": 1.2,
+        "massKgH": 0.6950270771099557
+      },
+      "inlets": {}
+    },
+    {
+      "id": "STEAM-01",
+      "type": "steamgen",
+      "name": "蒸汽发生及过热",
+      "x": 360,
+      "y": 460,
+      "params": {
+        "mode": "hybrid",
+        "targetT": 800,
+        "UA": 15,
+        "loss": 10,
+        "efficiency": 0.98,
+        "pinch": 15,
+        "dpWater": 0.005,
+        "dpHot": 0.005
+      },
+      "inlets": {
+        "water": {
+          "T": 25,
+          "P": 1.2,
+          "n": [
+            0,
+            0.010793474573657754,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "liquidWater"
+        },
+        "hot": {
+          "T": 900,
+          "P": 1.15,
+          "n": [
+            0,
+            0.0066922459177299895,
+            0,
+            0.00223074863924333,
+            0,
+            0.03346122958864995,
+            0.00223074863924333,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "MIX-01",
+      "type": "mixer",
+      "name": "天然气与蒸汽混合",
+      "x": 360,
+      "y": 90,
+      "params": {
+        "dp": 0.005
+      },
+      "inlets": {
+        "in1": {
+          "T": 500,
+          "P": 1.2,
+          "n": [
+            0.006692245917729988,
+            0.011153743196216646,
+            0.0011153743196216646,
+            0.0011153743196216646,
+            0.002230748639243329,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "in2": {
+          "T": 180,
+          "P": 1.2,
+          "n": [
+            0,
+            0.01115374319621665,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "REF-01",
+      "type": "reformer",
+      "name": "预重整器",
+      "x": 680,
+      "y": 90,
+      "params": {
+        "mode": "isothermal",
+        "targetT": 550,
+        "loss": 10,
+        "dp": 0.01
+      },
+      "inlets": {
+        "feed": {
+          "T": 500,
+          "P": 1.2,
+          "n": [
+            0.006692245917729988,
+            0.011153743196216646,
+            0.0011153743196216646,
+            0.0011153743196216646,
+            0.002230748639243329,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "FUELHX-01",
+      "type": "fuelHX",
+      "name": "燃气换热器",
+      "x": 1000,
+      "y": 90,
+      "params": {
+        "UA": 5,
+        "flow": "counter",
+        "dpHot": 0.005,
+        "dpCold": 0.005
+      },
+      "inlets": {
+        "hot": {
+          "T": 850,
+          "P": 1.15,
+          "n": [
+            0,
+            0.02007673775318997,
+            0,
+            0.0066922459177299895,
+            0,
+            0.10038368876594984,
+            0.0066922459177299895,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "cold": {
+          "T": 650,
+          "P": 1.2,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09398887600011897,
+            0.024984384759525295,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "EQ-01",
+      "type": "chamber",
+      "name": "隔离流路均温腔室",
+      "x": 1320,
+      "y": 260,
+      "params": {
+        "UAFuel": 8,
+        "UAAir": 12,
+        "UAEnv": 0.2,
+        "ambient": 700,
+        "heater": 150,
+        "dpFuel": 0.005,
+        "dpAir": 0.005
+      },
+      "inlets": {
+        "fuel": {
+          "T": 500,
+          "P": 1.2,
+          "n": [
+            0.006692245917729988,
+            0.011153743196216646,
+            0.0011153743196216646,
+            0.0011153743196216646,
+            0.002230748639243329,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "air": {
+          "T": 650,
+          "P": 1.2,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09398887600011897,
+            0.024984384759525295,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "STACK-01",
+      "type": "stack",
+      "name": "SOFC 电堆",
+      "x": 1640,
+      "y": 260,
+      "params": {
+        "stack": {
+          "name": "基准工况",
+          "flow": "co",
+          "N": 16,
+          "cells": 60,
+          "area": 100,
+          "length": 150,
+          "current": 40,
+          "pressure": 1.05,
+          "fuelT": 700,
+          "airT": 650,
+          "fuelMode": "util",
+          "airMode": "util",
+          "uf": 0.75,
+          "ua": 0.25,
+          "fuelFlow": 24,
+          "airFlow": 160,
+          "fuel": [
+            0.7,
+            0.25,
+            0,
+            0,
+            0,
+            0.05,
+            0
+          ],
+          "air": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.79,
+            0.21
+          ],
+          "hFuel": 70,
+          "hAir": 100,
+          "axial": 0.015,
+          "thermal": "insulation",
+          "ambient": 25,
+          "thickness": 80,
+          "conductivity": 0.04,
+          "externalArea": 0.025,
+          "furnaceT": 780,
+          "hEnv": 12,
+          "hydraulics": {
+            "fuel": {
+              "enabled": true,
+              "count": 24,
+              "width": 2,
+              "height": 1.5,
+              "viscosity": 40,
+              "inlet": {
+                "width": 24,
+                "height": 18,
+                "length": 35,
+                "K": 1
+              },
+              "outlet": {
+                "width": 24,
+                "height": 18,
+                "length": 35,
+                "K": 1
+              }
+            },
+            "air": {
+              "enabled": true,
+              "count": 24,
+              "width": 2,
+              "height": 1.5,
+              "viscosity": 40,
+              "inlet": {
+                "width": 24,
+                "height": 18,
+                "length": 35,
+                "K": 1
+              },
+              "outlet": {
+                "width": 24,
+                "height": 18,
+                "length": 35,
+                "K": 1
+              }
+            }
+          },
+          "topPlate": {
+            "UA": 0.05,
+            "ambient": 25
+          },
+          "bottomPlate": {
+            "UA": 0.08,
+            "ambient": 150
+          },
+          "asr": [
+            [
+              500,
+              2.8
+            ],
+            [
+              550,
+              1.8
+            ],
+            [
+              600,
+              1.05
+            ],
+            [
+              650,
+              0.65
+            ],
+            [
+              700,
+              0.4
+            ],
+            [
+              750,
+              0.26
+            ],
+            [
+              800,
+              0.18
+            ],
+            [
+              850,
+              0.13
+            ],
+            [
+              900,
+              0.1
+            ]
+          ]
+        }
+      },
+      "inlets": {
+        "fuel": {
+          "T": 500,
+          "P": 1.2,
+          "n": [
+            0.006692245917729988,
+            0.011153743196216646,
+            0.0011153743196216646,
+            0.0011153743196216646,
+            0.002230748639243329,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "air": {
+          "T": 650,
+          "P": 1.2,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09398887600011897,
+            0.024984384759525295,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "AIR-01",
+      "type": "feed",
+      "name": "系统空气入口",
+      "x": 40,
+      "y": 850,
+      "params": {
+        "T": 25,
+        "P": 1.01325,
+        "flow": 159.29467891435186,
+        "y": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.79,
+          0.21,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "inlets": {}
+    },
+    {
+      "id": "BLOWER-01",
+      "type": "blower",
+      "name": "系统空气风机",
+      "x": 360,
+      "y": 850,
+      "params": {
+        "rise": 0.18,
+        "etaIs": 0.65,
+        "etaMotor": 0.9
+      },
+      "inlets": {
+        "feed": {
+          "T": 25,
+          "P": 1.01325,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09398887600011897,
+            0.024984384759525295,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "AIRHX-01",
+      "type": "airHX",
+      "name": "空气换热器",
+      "x": 680,
+      "y": 850,
+      "params": {
+        "UA": 8,
+        "flow": "counter",
+        "dpHot": 0.005,
+        "dpCold": 0.005
+      },
+      "inlets": {
+        "hot": {
+          "T": 850,
+          "P": 1.15,
+          "n": [
+            0,
+            0.02007673775318997,
+            0,
+            0.0066922459177299895,
+            0,
+            0.10038368876594984,
+            0.0066922459177299895,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "cold": {
+          "T": 650,
+          "P": 1.2,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09398887600011897,
+            0.024984384759525295,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "BURN-01",
+      "type": "burner",
+      "name": "尾气燃烧器",
+      "x": 1640,
+      "y": 670,
+      "params": {
+        "mode": "adiabatic",
+        "lossFraction": 0.03,
+        "targetT": 850,
+        "dp": 0.005
+      },
+      "inlets": {
+        "fuel": {
+          "T": 750,
+          "P": 1.15,
+          "n": [
+            0.004015347550637993,
+            0.017176764522173642,
+            0,
+            0,
+            0,
+            0.001115374319621665,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "air": {
+          "T": 750,
+          "P": 1.15,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09369144284821986,
+            0.01784598911394664,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "SPLIT-01",
+      "type": "splitter",
+      "name": "燃烧尾气分流",
+      "x": 1320,
+      "y": 880,
+      "params": {
+        "fraction": 0.3
+      },
+      "inlets": {
+        "feed": {
+          "T": 650,
+          "P": 1.2,
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.09398887600011897,
+            0.024984384759525295,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "COLL-01",
+      "type": "collector",
+      "name": "汇合后排出系统",
+      "x": 1000,
+      "y": 1190,
+      "params": {
+        "dp": 0.005
+      },
+      "inlets": {
+        "in1": {
+          "T": 500,
+          "P": 1.2,
+          "n": [
+            0.006692245917729988,
+            0.011153743196216646,
+            0.0011153743196216646,
+            0.0011153743196216646,
+            0.002230748639243329,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        },
+        "in2": {
+          "T": 180,
+          "P": 1.2,
+          "n": [
+            0,
+            0.01115374319621665,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "phase": "gas"
+        }
+      }
+    },
+    {
+      "id": "CTRL-01",
+      "type": "controller",
+      "name": "电源及拉载控制",
+      "x": 1640,
+      "y": 0,
+      "params": {
+        "efficiency": 0.97,
+        "standbyW": 5,
+        "currentTau": 1,
+        "gasTau": 3,
+        "airTau": 2,
+        "waterTau": 4,
+        "compositionDelay": 5,
+        "compositionTau": 2,
+        "duration": 30,
+        "dt": 2,
+        "curve": [
+          [
+            0,
+            40
+          ],
+          [
+            10,
+            45
+          ],
+          [
+            20,
+            35
+          ],
+          [
+            30,
+            40
+          ]
+        ],
+        "compositionCurve": []
+      },
+      "inlets": {}
+    }
+  ],
+  "edges": [
+    {
+      "id": "S01",
+      "from": {
+        "node": "NG-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "MIX-01",
+        "port": "in1"
+      }
+    },
+    {
+      "id": "S02",
+      "from": {
+        "node": "WATER-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "STEAM-01",
+        "port": "water"
+      }
+    },
+    {
+      "id": "S03",
+      "from": {
+        "node": "STEAM-01",
+        "port": "steam"
+      },
+      "to": {
+        "node": "MIX-01",
+        "port": "in2"
+      }
+    },
+    {
+      "id": "S04",
+      "from": {
+        "node": "MIX-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "REF-01",
+        "port": "feed"
+      }
+    },
+    {
+      "id": "S05",
+      "from": {
+        "node": "REF-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "FUELHX-01",
+        "port": "cold"
+      }
+    },
+    {
+      "id": "S06",
+      "from": {
+        "node": "FUELHX-01",
+        "port": "coldOut"
+      },
+      "to": {
+        "node": "EQ-01",
+        "port": "fuel"
+      }
+    },
+    {
+      "id": "S07",
+      "from": {
+        "node": "EQ-01",
+        "port": "fuelOut"
+      },
+      "to": {
+        "node": "STACK-01",
+        "port": "fuel"
+      }
+    },
+    {
+      "id": "S08",
+      "from": {
+        "node": "AIR-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "BLOWER-01",
+        "port": "feed"
+      }
+    },
+    {
+      "id": "S09",
+      "from": {
+        "node": "BLOWER-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "AIRHX-01",
+        "port": "cold"
+      }
+    },
+    {
+      "id": "S10",
+      "from": {
+        "node": "AIRHX-01",
+        "port": "coldOut"
+      },
+      "to": {
+        "node": "EQ-01",
+        "port": "air"
+      }
+    },
+    {
+      "id": "S11",
+      "from": {
+        "node": "EQ-01",
+        "port": "airOut"
+      },
+      "to": {
+        "node": "STACK-01",
+        "port": "air"
+      }
+    },
+    {
+      "id": "S12",
+      "from": {
+        "node": "STACK-01",
+        "port": "airOut"
+      },
+      "to": {
+        "node": "FUELHX-01",
+        "port": "hot"
+      }
+    },
+    {
+      "id": "S13",
+      "from": {
+        "node": "FUELHX-01",
+        "port": "hotOut"
+      },
+      "to": {
+        "node": "BURN-01",
+        "port": "air"
+      }
+    },
+    {
+      "id": "S14",
+      "from": {
+        "node": "STACK-01",
+        "port": "fuelOut"
+      },
+      "to": {
+        "node": "BURN-01",
+        "port": "fuel"
+      }
+    },
+    {
+      "id": "S15",
+      "from": {
+        "node": "BURN-01",
+        "port": "out"
+      },
+      "to": {
+        "node": "SPLIT-01",
+        "port": "feed"
+      }
+    },
+    {
+      "id": "S16",
+      "from": {
+        "node": "SPLIT-01",
+        "port": "out1"
+      },
+      "to": {
+        "node": "STEAM-01",
+        "port": "hot"
+      }
+    },
+    {
+      "id": "S17",
+      "from": {
+        "node": "SPLIT-01",
+        "port": "out2"
+      },
+      "to": {
+        "node": "AIRHX-01",
+        "port": "hot"
+      }
+    },
+    {
+      "id": "S18",
+      "from": {
+        "node": "STEAM-01",
+        "port": "hotOut"
+      },
+      "to": {
+        "node": "COLL-01",
+        "port": "in1"
+      }
+    },
+    {
+      "id": "S19",
+      "from": {
+        "node": "AIRHX-01",
+        "port": "hotOut"
+      },
+      "to": {
+        "node": "COLL-01",
+        "port": "in2"
+      }
+    }
+  ],
+  "zoom": 0.65,
+  "boundary": {
+    "enabled": true,
+    "current": 40,
+    "uf": 0.75,
+    "ua": 0.25,
+    "sc": 2.5,
+    "gasId": "NG-01",
+    "waterId": "WATER-01",
+    "airId": "AIR-01",
+    "stackId": "STACK-01",
+    "controllerId": "CTRL-01"
+  },
+  "solver": {
+    "maxIterations": 100,
+    "relaxation": 0.55
+  },
+  "boundaryResult": {
+    "current": 40,
+    "gasNLmin": 5.0569739337889485,
+    "waterKgH": 0.6950270771099557,
+    "airNLmin": 159.29467891435186,
+    "equivalent": 4.41,
+    "carbonPerMol": 1.14,
+    "sc": 2.5,
+    "uf": 0.75,
+    "ua": 0.25
+  },
+  "sheet": {
+    "enabled": false,
+    "pristine": true,
+    "rows": 36,
+    "cols": 8,
+    "cells": {
+      "A1": {
+        "raw": "SOFC 系统计算工作表"
+      },
+      "E1": {
+        "raw": "流程输出回写"
+      },
+      "A3": {
+        "raw": "支路电流 I"
+      },
+      "B3": {
+        "raw": "40"
+      },
+      "C3": {
+        "raw": "A"
+      },
+      "A4": {
+        "raw": "串联片数"
+      },
+      "B4": {
+        "raw": "60"
+      },
+      "C4": {
+        "raw": "片"
+      },
+      "A5": {
+        "raw": "燃料利用率 Uf"
+      },
+      "B5": {
+        "raw": "0.75"
+      },
+      "C5": {
+        "raw": "0–1"
+      },
+      "A6": {
+        "raw": "氧利用率 Ua"
+      },
+      "B6": {
+        "raw": "0.25"
+      },
+      "C6": {
+        "raw": "0–1"
+      },
+      "A7": {
+        "raw": "蒸汽碳比 S/C"
+      },
+      "B7": {
+        "raw": "2.5"
+      },
+      "C7": {
+        "raw": "mol/mol"
+      },
+      "A8": {
+        "raw": "法拉第常数 F"
+      },
+      "B8": {
+        "raw": "96485.33212"
+      },
+      "C8": {
+        "raw": "C/mol"
+      },
+      "A9": {
+        "raw": "天然气 H₂ 当量"
+      },
+      "B9": {
+        "raw": "=B22*C22+B23*C23+B24*C24+B25*C25+B26*C26+B27*C27+B28*C28+B29*C29+B30*C30+B31*C31+B32*C32"
+      },
+      "C9": {
+        "raw": "mol/mol"
+      },
+      "A10": {
+        "raw": "天然气烃碳"
+      },
+      "B10": {
+        "raw": "=B22*D22+B23*D23+B24*D24+B25*D25+B26*D26+B27*D27+B28*D28+B29*D29+B30*D30+B31*D31+B32*D32"
+      },
+      "C10": {
+        "raw": "mol C/mol"
+      },
+      "A11": {
+        "raw": "燃气摩尔流率"
+      },
+      "B11": {
+        "raw": "=B3*B4/(2*B8*B5*B9)"
+      },
+      "C11": {
+        "raw": "mol/s"
+      },
+      "A12": {
+        "raw": "天然气标准流量"
+      },
+      "B12": {
+        "raw": "=B11*22.414*60"
+      },
+      "C12": {
+        "raw": "NL/min"
+      },
+      "A13": {
+        "raw": "给水质量流率"
+      },
+      "B13": {
+        "raw": "=MAX(0,B7*B10*B11-B23*B11)*18.015*3.6"
+      },
+      "C13": {
+        "raw": "kg/h"
+      },
+      "A14": {
+        "raw": "空气标准流量"
+      },
+      "B14": {
+        "raw": "=B3*B4/(4*B8*B6*F14)*22.414*60"
+      },
+      "C14": {
+        "raw": "NL/min"
+      },
+      "A16": {
+        "raw": "目标电堆直流功率"
+      },
+      "B16": {
+        "raw": "1800"
+      },
+      "C16": {
+        "raw": "W"
+      },
+      "A17": {
+        "raw": "由电压反算电流"
+      },
+      "B17": {
+        "raw": "=B16/(B4*F3)"
+      },
+      "C17": {
+        "raw": "A"
+      },
+      "E3": {
+        "raw": "单电池电压"
+      },
+      "E4": {
+        "raw": "电堆直流功率"
+      },
+      "E5": {
+        "raw": "系统净功率"
+      },
+      "E6": {
+        "raw": "最高电堆温度"
+      },
+      "E7": {
+        "raw": "天然气实际流量"
+      },
+      "E8": {
+        "raw": "实际给水量"
+      },
+      "E9": {
+        "raw": "实际空气流量"
+      },
+      "E10": {
+        "raw": "系统辅助电耗"
+      },
+      "E14": {
+        "raw": "空气 O₂ 摩尔分数"
+      },
+      "F14": {
+        "raw": "0.21"
+      },
+      "E15": {
+        "raw": "空气 N₂ 摩尔分数"
+      },
+      "F15": {
+        "raw": "=1-F14"
+      },
+      "D17": {
+        "raw": "将 B3 改成 =B17 可闭环求目标功率"
+      },
+      "A20": {
+        "raw": "天然气组分（mol/mol）"
+      },
+      "B21": {
+        "raw": "摩尔分数"
+      },
+      "C21": {
+        "raw": "H₂当量系数"
+      },
+      "D21": {
+        "raw": "烃碳系数"
+      },
+      "A22": {
+        "raw": "H2"
+      },
+      "B22": {
+        "raw": "0"
+      },
+      "C22": {
+        "raw": "1"
+      },
+      "D22": {
+        "raw": "0"
+      },
+      "A23": {
+        "raw": "H2O"
+      },
+      "B23": {
+        "raw": "0"
+      },
+      "C23": {
+        "raw": "0"
+      },
+      "D23": {
+        "raw": "0"
+      },
+      "A24": {
+        "raw": "CO"
+      },
+      "B24": {
+        "raw": "0"
+      },
+      "C24": {
+        "raw": "1"
+      },
+      "D24": {
+        "raw": "0"
+      },
+      "A25": {
+        "raw": "CO2"
+      },
+      "B25": {
+        "raw": "0.005"
+      },
+      "C25": {
+        "raw": "0"
+      },
+      "D25": {
+        "raw": "0"
+      },
+      "A26": {
+        "raw": "CH4"
+      },
+      "B26": {
+        "raw": "0.9"
+      },
+      "C26": {
+        "raw": "4"
+      },
+      "D26": {
+        "raw": "1"
+      },
+      "A27": {
+        "raw": "N2"
+      },
+      "B27": {
+        "raw": "0.005"
+      },
+      "C27": {
+        "raw": "0"
+      },
+      "D27": {
+        "raw": "0"
+      },
+      "A28": {
+        "raw": "O2"
+      },
+      "B28": {
+        "raw": "0"
+      },
+      "C28": {
+        "raw": "-2"
+      },
+      "D28": {
+        "raw": "0"
+      },
+      "A29": {
+        "raw": "C2H6"
+      },
+      "B29": {
+        "raw": "0.05"
+      },
+      "C29": {
+        "raw": "7"
+      },
+      "D29": {
+        "raw": "2"
+      },
+      "A30": {
+        "raw": "C3H8"
+      },
+      "B30": {
+        "raw": "0.025"
+      },
+      "C30": {
+        "raw": "10"
+      },
+      "D30": {
+        "raw": "3"
+      },
+      "A31": {
+        "raw": "C4H10"
+      },
+      "B31": {
+        "raw": "0.01"
+      },
+      "C31": {
+        "raw": "13"
+      },
+      "D31": {
+        "raw": "4"
+      },
+      "A32": {
+        "raw": "C5H12"
+      },
+      "B32": {
+        "raw": "0.005"
+      },
+      "C32": {
+        "raw": "16"
+      },
+      "D32": {
+        "raw": "5"
+      },
+      "A34": {
+        "raw": "组分合计"
+      },
+      "B34": {
+        "raw": "=SUM(B22:B32)"
+      }
+    },
+    "bindings": [
+      {
+        "cell": "B3",
+        "direction": "input",
+        "module": "$BOUNDARY",
+        "parameter": "current"
+      },
+      {
+        "cell": "B4",
+        "direction": "input",
+        "module": "STACK-01",
+        "parameter": "stack.cells"
+      },
+      {
+        "cell": "B5",
+        "direction": "input",
+        "module": "$BOUNDARY",
+        "parameter": "uf"
+      },
+      {
+        "cell": "B6",
+        "direction": "input",
+        "module": "$BOUNDARY",
+        "parameter": "ua"
+      },
+      {
+        "cell": "B7",
+        "direction": "input",
+        "module": "$BOUNDARY",
+        "parameter": "sc"
+      },
+      {
+        "cell": "F3",
+        "direction": "output",
+        "module": "STACK-01",
+        "parameter": "metrics.voltage",
+        "initial": 0.75
+      },
+      {
+        "cell": "F4",
+        "direction": "output",
+        "module": "$SYSTEM",
+        "parameter": "grossPower",
+        "initial": 1800
+      },
+      {
+        "cell": "F5",
+        "direction": "output",
+        "module": "$SYSTEM",
+        "parameter": "power",
+        "initial": 1500
+      },
+      {
+        "cell": "F6",
+        "direction": "output",
+        "module": "STACK-01",
+        "parameter": "metrics.peak",
+        "initial": 700
+      },
+      {
+        "cell": "F7",
+        "direction": "output",
+        "module": "NG-01",
+        "parameter": "outputs.out.flow",
+        "initial": 5
+      },
+      {
+        "cell": "F8",
+        "direction": "output",
+        "module": "WATER-01",
+        "parameter": "outputs.out.massKgH",
+        "initial": 0.7
+      },
+      {
+        "cell": "F9",
+        "direction": "output",
+        "module": "AIR-01",
+        "parameter": "outputs.out.flow",
+        "initial": 160
+      },
+      {
+        "cell": "F10",
+        "direction": "output",
+        "module": "$SYSTEM",
+        "parameter": "auxPower",
+        "initial": 300
+      },
+      {
+        "cell": "F14",
+        "direction": "input",
+        "module": "AIR-01",
+        "parameter": "y.O2"
+      },
+      {
+        "cell": "F15",
+        "direction": "input",
+        "module": "AIR-01",
+        "parameter": "y.N2"
+      },
+      {
+        "cell": "B22",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.H2"
+      },
+      {
+        "cell": "B23",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.H2O"
+      },
+      {
+        "cell": "B24",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.CO"
+      },
+      {
+        "cell": "B25",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.CO2"
+      },
+      {
+        "cell": "B26",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.CH4"
+      },
+      {
+        "cell": "B27",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.N2"
+      },
+      {
+        "cell": "B28",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.O2"
+      },
+      {
+        "cell": "B29",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.C2H6"
+      },
+      {
+        "cell": "B30",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.C3H8"
+      },
+      {
+        "cell": "B31",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.C4H10"
+      },
+      {
+        "cell": "B32",
+        "direction": "input",
+        "module": "NG-01",
+        "parameter": "y.C5H12"
+      }
+    ],
+    "iteration": {
+      "enabled": true,
+      "maxIterations": 15,
+      "relaxation": 0.8,
+      "tolerance": 0.00001
+    }
+  }
+}
